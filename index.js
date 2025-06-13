@@ -15,15 +15,15 @@ require("./config/passport-jwt-strategy")(passport);
 const app = express();
 
 app.use(helmet());
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? [process.env.FRONTEND_URL]
-        : "http://localhost:5173",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? process.env.FRONTEND_URL 
+      : "http://localhost:5173",
+  credentials: true, // 允许发送认证信息
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // 允许的 HTTP 方法
+  allowedHeaders: ["Content-Type", "Authorization"], // 允许的请求头
+};
 
 // 速率限制
 const limiter = rateLimit({
@@ -46,7 +46,7 @@ app.get("/health", (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/auth", authRoutes);
