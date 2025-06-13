@@ -8,11 +8,9 @@ dotenv.config();
 const seedData = async () => {
   try {
     // 1. Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.MONGODB_URI).then(() => {
+      console.log("Successfully connected to MongoDB!");
     });
-    console.log("Successfully connected to MongoDB!");
 
     // 2. Clear existing data
     console.log("Clearing users and courses collections...");
