@@ -70,7 +70,7 @@ A simple course management platform built with the MERN stack (MongoDB, Express.
 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/tan5166/mern-server.git
 cd server
 ```
 
